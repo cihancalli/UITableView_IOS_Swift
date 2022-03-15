@@ -9,7 +9,7 @@ import UIKit
 
 class InitialTableViewController: UITableViewController {
     
-    let tableViewData = [
+    var tableViewData = [
         ["Genaral","Accessibility","Privacy"],
         ["Password"],
         ["Safari","News","Translate"],
@@ -47,6 +47,17 @@ class InitialTableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let alertController = UIAlertController (title: "Uyarı", message: tableViewData[indexPath.section][indexPath.row], preferredStyle: UIAlertController.Style.alert)
+        alertController.addAction(UIAlertAction(title: "TAMAM", style: UIAlertAction.Style.default, handler: { _ in
+            alertController.dismiss(animated: false)
+        }))
+        alertController.addAction(UIAlertAction(title: "SİL", style: .destructive, handler: {_ in
+            self.tableViewData[indexPath.section].remove(at: indexPath.row)
+            tableView.reloadData()
+        }))
+        present(alertController, animated: true)
+    }
 
     /*
     // Override to support conditional editing of the table view.
